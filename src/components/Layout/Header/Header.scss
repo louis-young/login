@@ -1,0 +1,13 @@
+@import "../../../stylesheets/abstracts/mixins";
+@import "../../../stylesheets/abstracts/variables";
+
+.header {
+  background: $light-grey;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+  &__logo {
+    color: $primary-color;
+  }
+}
