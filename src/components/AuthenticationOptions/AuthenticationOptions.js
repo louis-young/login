@@ -1,12 +1,12 @@
 import React, { useContext } from "react";
 import { useHistory } from "react-router-dom";
 
-import UserContext from "../../context/UserContext";
+import { AuthenticationContext } from "../../context/AuthenticationContext";
 
 const AuthenticationOptions = () => {
   const history = useHistory();
 
-  const { user, setUser } = useContext(UserContext);
+  const { user, logout } = useContext(AuthenticationContext);
 
   const register = () => {
     history.push("/register");
@@ -16,23 +16,18 @@ const AuthenticationOptions = () => {
     history.push("/login");
   };
 
-  const logout = () => {
-    setUser({
-      token: null,
-      user: null,
-    });
-
-    localStorage["authentication-token"] = "";
-  };
-
   return (
     <nav className="options">
       {user.user ? (
         <button onClick={logout}>Log Out</button>
       ) : (
         <>
-          <button onClick={register}>Register</button>
-          <button onClick={login}>Login</button>
+          <button onClick={login} className="options__button">
+            Log In
+          </button>
+          <button onClick={register} className="options__button options__button--featured">
+            Sign Up
+          </button>
         </>
       )}
     </nav>

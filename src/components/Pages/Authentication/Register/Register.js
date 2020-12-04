@@ -1,22 +1,15 @@
 import React, { useState, useContext } from "react";
-import { useHistory } from "react-router-dom";
 
-import Axios from "axios";
-
-import UserContext from "../../../../context/UserContext";
+import { AuthenticationContext } from "../../../../context/AuthenticationContext";
 
 import Notification from "../../../Notification/Notification";
 
 const Register = () => {
-  const { setUser } = useContext(UserContext);
-
-  const history = useHistory();
+  const { register, error, setError } = useContext(AuthenticationContext);
 
   const [name, setName] = useState();
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
-
-  const [error, setError] = useState();
 
   /**
    * Register user.
@@ -27,26 +20,9 @@ const Register = () => {
   const submit = async (event) => {
     event.preventDefault();
 
-    try {
-      const newUser = { name, email, password };
+    const credentials = { name, email, password };
 
-      await Axios.post(`${process.env.REACT_APP_API_URL}/users/register`, newUser);
-
-      const response = await Axios.post(`${process.env.REACT_APP_API_URL}/users/login`, { email, password });
-
-      setUser({
-        token: response.data.token,
-        user: response.data.user,
-      });
-
-      localStorage["authentication-token"] = response.data.token;
-
-      history.push("/");
-    } catch (error) {
-      const { message } = error.response.data;
-
-      if (message) setError(message);
-    }
+    register(credentials);
   };
 
   return (

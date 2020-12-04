@@ -1,21 +1,14 @@
 import React, { useState, useContext } from "react";
-import { useHistory } from "react-router-dom";
 
-import Axios from "axios";
-
-import UserContext from "../../../../context/UserContext";
+import { AuthenticationContext } from "../../../../context/AuthenticationContext";
 
 import Notification from "../../../Notification/Notification";
 
 const Login = () => {
-  const { setUser } = useContext(UserContext);
-
-  const history = useHistory();
+  const { login, error, setError } = useContext(AuthenticationContext);
 
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
-
-  const [error, setError] = useState();
 
   /**
    * Log user in.
@@ -26,24 +19,9 @@ const Login = () => {
   const submit = async (event) => {
     event.preventDefault();
 
-    try {
-      const loginUser = { email, password };
+    const credentials = { email, password };
 
-      const response = await Axios.post(`${process.env.REACT_APP_API_URL}/users/login`, loginUser);
-
-      setUser({
-        token: response.data.token,
-        user: response.data.user,
-      });
-
-      localStorage["authentication-token"] = response.data.token;
-
-      history.push("/");
-    } catch (error) {
-      const { message } = error.response.data;
-
-      if (message) setError(message);
-    }
+    login(credentials);
   };
 
   return (
