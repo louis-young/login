@@ -23,7 +23,7 @@ export const AuthenticationProvider = ({ children }) => {
     const checkUserLoggedIn = async () => {
       const token = localStorage["authentication-token"] || "";
 
-      const response = await Axios.post(`${process.env.REACT_APP_API_URL}/users/token/valid`, null, {
+      const response = await Axios.post(`${process.env.REACT_APP_API_BASE_URL}/users/token/valid`, null, {
         headers: {
           "x-authentication-token": token,
         },
@@ -32,7 +32,7 @@ export const AuthenticationProvider = ({ children }) => {
       if (!response.data) return;
 
       // Named `_user` due to the state variable name.
-      const _user = await Axios.get(`${process.env.REACT_APP_API_URL}/users`, {
+      const _user = await Axios.get(`${process.env.REACT_APP_API_BASE_URL}/users`, {
         headers: {
           "x-authentication-token": token,
         },
@@ -54,7 +54,7 @@ export const AuthenticationProvider = ({ children }) => {
 
         const loginUser = { email, password };
 
-        const response = await Axios.post(`${process.env.REACT_APP_API_URL}/users/login`, loginUser);
+        const response = await Axios.post(`${process.env.REACT_APP_API_BASE_URL}/users/login`, loginUser);
 
         setUser({
           token: response.data.token,
@@ -90,9 +90,9 @@ export const AuthenticationProvider = ({ children }) => {
 
         const newUser = { name, email, password };
 
-        await Axios.post(`${process.env.REACT_APP_API_URL}/users/register`, newUser);
+        await Axios.post(`${process.env.REACT_APP_API_BASE_URL}/users/register`, newUser);
 
-        const response = await Axios.post(`${process.env.REACT_APP_API_URL}/users/login`, { email, password });
+        const response = await Axios.post(`${process.env.REACT_APP_API_BASE_URL}/users/login`, { email, password });
 
         setUser({
           token: response.data.token,
