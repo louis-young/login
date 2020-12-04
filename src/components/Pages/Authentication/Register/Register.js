@@ -11,12 +11,6 @@ const Register = () => {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
 
-  /**
-   * Register user.
-   *
-   * @param {object} event
-   */
-
   const submit = async (event) => {
     event.preventDefault();
 

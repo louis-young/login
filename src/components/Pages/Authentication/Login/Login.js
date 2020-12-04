@@ -10,12 +10,6 @@ const Login = () => {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
 
-  /**
-   * Log user in.
-   *
-   * @param {object} event
-   */
-
   const submit = async (event) => {
     event.preventDefault();
 

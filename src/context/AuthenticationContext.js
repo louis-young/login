@@ -1,5 +1,6 @@
 import React, { useState, useEffect, createContext } from "react";
 import { useHistory } from "react-router-dom";
+
 import Axios from "axios";
 
 export const AuthenticationContext = createContext();
@@ -30,7 +31,7 @@ export const AuthenticationProvider = ({ children }) => {
 
       if (!response.data) return;
 
-      // Not named `user` due to the state variable name.
+      // Named `_user` due to the state variable name.
       const _user = await Axios.get(`${process.env.REACT_APP_API_URL}/users`, {
         headers: {
           "x-authentication-token": token,
@@ -45,12 +46,6 @@ export const AuthenticationProvider = ({ children }) => {
 
     checkUserLoggedIn();
   }, []);
-
-  /**
-   * Log user in.
-   *
-   * @param {object} credentials
-   */
 
   const login = (credentials) => {
     (async () => {
@@ -76,10 +71,6 @@ export const AuthenticationProvider = ({ children }) => {
       }
     })();
   };
-
-  /**
-   * Log user out.
-   */
 
   const logout = () => {
     setUser({
