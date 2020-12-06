@@ -4,11 +4,6 @@ $body-font-family: "Montserrat", sans-serif;
 
 $heading-font-family: inherit;
 
-$primary-text-color: #474747;
-
-$light-text: #ffffff;
-$dark-text: #131313;
-
 $heading-line-height: 2;
 $body-line-height: 2;
 
@@ -24,7 +19,7 @@ $heavy: 900;
 
 body {
   font-family: $body-font-family;
-  color: $primary-text-color;
+  color: $text;
 }
 
 h1,
@@ -35,6 +30,7 @@ h5,
 h6 {
   line-height: $heading-line-height;
   font-family: $heading-font-family;
+  font-weight: $semi-bold;
 }
 
 p,
@@ -44,12 +40,12 @@ input,
 label,
 address {
   line-height: $body-line-height;
-  color: $primary-text-color;
+  color: $text;
 }
 
 %h1 {
   padding: 1.5rem 0;
-  font-size: 24px;
+  font-size: 28px;
   @include tablet {
     padding: 2.5rem 0;
     font-size: 32px;
@@ -105,9 +101,9 @@ address {
 
 %p {
   font-size: 16px;
-  padding: 0.5rem 0;
+  padding-top: 0.5rem;
   @include tablet {
-    padding: 1rem 0;
+    padding-top: 0.75rem;
   }
 }
 

@@ -3,7 +3,7 @@ import { Route, useHistory } from "react-router-dom";
 
 import { AuthenticationContext } from "../../context/AuthenticationContext";
 
-const ProtectedRoute = ({ component: Component, ...rest }) => {
+const ProtectedRoute = ({ Component, ...rest }) => {
   const history = useHistory();
 
   const { user } = useContext(AuthenticationContext);

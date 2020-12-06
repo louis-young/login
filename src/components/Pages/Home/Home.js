@@ -6,9 +6,11 @@ import Test from "../../Pages/Test/Test";
 const Home = () => {
   return (
     <>
-      <div>Home</div>
+      <main className="page">
+        <h1>Home</h1>
 
-      <Link to="/test">Test</Link>
+        <Link to="/test">Test</Link>
+      </main>
     </>
   );
 };

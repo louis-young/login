@@ -1,0 +1,29 @@
+@import "../../stylesheets/abstracts/mixins";
+@import "../../stylesheets/abstracts/breakpoints";
+@import "../../stylesheets/abstracts/variables";
+@import "../../stylesheets/abstracts/extends";
+@import "../../stylesheets/base/typography";
+
+.notification {
+  @extend %round;
+  padding: 1rem;
+  background: $primary-color;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+  &__text {
+    color: $white;
+    padding: unset;
+    line-height: 1.4;
+  }
+  &__close {
+    color: $white;
+    box-shadow: unset;
+    border: unset;
+    background: unset;
+    font-weight: $semi-bold;
+    cursor: pointer;
+    padding: 0.25rem;
+  }
+}

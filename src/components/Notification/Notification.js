@@ -1,9 +1,11 @@
 import React from "react";
 
-const Notification = ({ message, clearMessage }) => {
+import "./Notification.scss";
+
+const Notification = ({ message }) => {
   return (
-    <article>
-      {message} <button onClick={clearMessage}>x</button>
+    <article className="notification">
+      <p className="notification__text">{message}</p>
     </article>
   );
 };

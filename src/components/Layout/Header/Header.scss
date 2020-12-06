@@ -1,13 +1,23 @@
 @import "../../../stylesheets/abstracts/mixins";
+@import "../../../stylesheets/abstracts/breakpoints";
 @import "../../../stylesheets/abstracts/variables";
+@import "../../../stylesheets/base/typography";
 
 .header {
   background: $light-grey;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 1rem;
+  padding: 1rem 2rem;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 2;
   &__logo {
+    @extend %h3;
     color: $primary-color;
+    padding: unset;
+    margin: unset;
   }
 }

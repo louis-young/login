@@ -1,0 +1,24 @@
+// Form.
+.form {
+  width: 100%;
+  max-width: 520px;
+  margin: auto;
+  //   text-align: center;
+  &__input {
+    display: block;
+    width: 100%;
+    margin-bottom: 1rem;
+    border: unset;
+    padding: 1rem;
+    background: #f1f7ff;
+    &:last-of-type {
+      margin-bottom: unset;
+    }
+    &::placeholder {
+      color: #212529;
+    }
+    &--text {
+      margin-bottom: unset;
+    }
+  }
+}

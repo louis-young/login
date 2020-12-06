@@ -4,6 +4,8 @@ import { AuthenticationContext } from "../../../../context/AuthenticationContext
 
 import Notification from "../../../Notification/Notification";
 
+import "./Register.scss";
+
 const Register = () => {
   const { register, error, setError } = useContext(AuthenticationContext);
 
@@ -20,24 +22,25 @@ const Register = () => {
   };
 
   return (
-    <section>
-      <h2>Register</h2>
-      {error && (
-        <Notification
-          message={error}
-          clearMessage={() => {
-            setError(null);
-          }}
+    <section className="register">
+      <form onSubmit={submit} className="form">
+        <h2>Sign Up</h2>
+        {error && <Notification message={error} />}
+        <input
+          type="text"
+          name="name"
+          placeholder="Name"
+          onChange={(event) => setName(event.target.value)}
+          required
+          className="form__input"
         />
-      )}
-      <form onSubmit={submit}>
-        <input type="text" name="name" placeholder="Name" onChange={(event) => setName(event.target.value)} required />
         <input
           type="email"
           name="email"
           placeholder="Email"
           onChange={(event) => setEmail(event.target.value)}
           required
+          className="form__input"
         />
         <input
           type="password"
@@ -45,8 +48,11 @@ const Register = () => {
           placeholder="Password"
           onChange={(event) => setPassword(event.target.value)}
           required
+          className="form__input"
         />
-        <button type="submit">Register</button>
+        <button type="submit" className="form__submit button">
+          Sign Up
+        </button>
       </form>
     </section>
   );
