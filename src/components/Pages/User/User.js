@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import { history, useHistory } from "react-router-dom";
 
 import { AuthenticationContext } from "../../../context/AuthenticationContext";
 
@@ -6,6 +7,8 @@ import "./User.scss";
 
 const User = () => {
   const { user, _delete } = useContext(AuthenticationContext);
+
+  const history = useHistory();
 
   const deleteAccount = () => {
     if (window.confirm("Are you sure you want to delete this account?")) {
@@ -28,6 +31,10 @@ const User = () => {
           <p className="user__value">{user.user.email}</p>
         </article>
       </section>
+
+      <button className="button button--space-right" onClick={() => history.push("/user/update")}>
+        Update Details
+      </button>
 
       <button className="button button--danger" onClick={deleteAccount}>
         Delete Account

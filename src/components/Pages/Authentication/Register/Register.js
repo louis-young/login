@@ -7,14 +7,14 @@ import Notification from "../../../Notification/Notification";
 import "./Register.scss";
 
 const Register = () => {
-  const { register, error, setError } = useContext(AuthenticationContext);
+  const { register, notification, setNotification } = useContext(AuthenticationContext);
 
   const [name, setName] = useState();
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
 
   useEffect(() => {
-    setError(null);
+    setNotification(null);
   }, []);
 
   const submit = async (event) => {
@@ -29,7 +29,7 @@ const Register = () => {
     <section className="register">
       <form onSubmit={submit} className="form">
         <h2>Sign Up</h2>
-        {error && <Notification message={error} />}
+        {notification && <Notification message={notification} />}
         <input
           type="text"
           name="name"

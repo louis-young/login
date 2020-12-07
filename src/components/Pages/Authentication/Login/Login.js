@@ -7,13 +7,13 @@ import Notification from "../../../Notification/Notification";
 import "./Login.scss";
 
 const Login = () => {
-  const { login, error, setError } = useContext(AuthenticationContext);
+  const { login, notification, setNotification } = useContext(AuthenticationContext);
 
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
 
   useEffect(() => {
-    setError(null);
+    setNotification(null);
   }, []);
 
   const submit = async (event) => {
@@ -28,7 +28,7 @@ const Login = () => {
     <section className="login">
       <form onSubmit={submit} className="form">
         <h2>Log In</h2>
-        {error && <Notification message={error} />}
+        {notification && <Notification message={notification} />}
         <input
           type="email"
           name="email"

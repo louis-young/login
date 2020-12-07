@@ -13,7 +13,7 @@ export const AuthenticationProvider = ({ children }) => {
     user: null,
   });
 
-  const [error, setError] = useState();
+  const [notification, setNotification] = useState();
 
   const [authenticating, setAuthenticating] = useState(false);
 
@@ -87,7 +87,7 @@ export const AuthenticationProvider = ({ children }) => {
       } catch (error) {
         const { message } = error.response.data;
 
-        if (message) setError(message);
+        if (message) setNotification(message);
       }
     })();
   };
@@ -125,7 +125,7 @@ export const AuthenticationProvider = ({ children }) => {
       } catch (error) {
         const { message } = error.response.data;
 
-        if (message) setError(message);
+        if (message) setNotification(message);
       }
     })();
   };
@@ -146,9 +146,34 @@ export const AuthenticationProvider = ({ children }) => {
 
         logout();
       } catch (error) {
+        console.error(error.message);
+      }
+    })();
+  };
+
+  const update = (fields) => {
+    (async () => {
+      try {
+        const token = localStorage["authentication-token"] || "";
+
+        const response = await Axios.patch(`${process.env.REACT_APP_API_BASE_URL}/users/update`, fields, {
+          headers: {
+            "x-authentication-token": token,
+          },
+        });
+
+        if (!response.data) throw Error;
+
+        setUser({
+          ...user,
+          user: response.data.user,
+        });
+
+        setNotification(response.data.message);
+      } catch (error) {
         const { message } = error.response.data;
 
-        if (message) setError(message);
+        if (message) setNotification(message);
       }
     })();
   };
@@ -158,12 +183,13 @@ export const AuthenticationProvider = ({ children }) => {
       value={{
         user,
         setUser,
-        error,
-        setError,
+        notification,
+        setNotification,
         login,
         logout,
         register,
         _delete,
+        update,
         authenticating,
       }}
     >
