@@ -23,35 +23,45 @@ export const AuthenticationProvider = ({ children }) => {
 
   useEffect(() => {
     const checkUserLoggedIn = async () => {
-      setAuthenticating(true);
+      try {
+        setAuthenticating(true);
 
-      const token = localStorage["authentication-token"] || "";
+        const token = localStorage["authentication-token"] || "";
 
-      const response = await Axios.post(`${process.env.REACT_APP_API_BASE_URL}/users/token/valid`, null, {
-        headers: {
-          "x-authentication-token": token,
-        },
-      });
+        const response = await Axios.post(`${process.env.REACT_APP_API_BASE_URL}/users/token/valid`, null, {
+          headers: {
+            "x-authentication-token": token,
+          },
+        });
 
-      if (!response.data) {
+        if (!response.data) throw Error;
+
+        // Named `_user` due to the state variable name.
+        const _user = await Axios.get(`${process.env.REACT_APP_API_BASE_URL}/users`, {
+          headers: {
+            "x-authentication-token": token,
+          },
+        });
+
+        setUser({
+          token,
+          user: _user.data,
+        });
+
         setAuthenticating(false);
+      } catch (error) {
+        // Same as logout.
+        setUser({
+          token: null,
+          user: null,
+        });
 
-        return;
+        localStorage["authentication-token"] = "";
+
+        history.push("/");
+
+        setAuthenticating(false);
       }
-
-      // Named `_user` due to the state variable name.
-      const _user = await Axios.get(`${process.env.REACT_APP_API_BASE_URL}/users`, {
-        headers: {
-          "x-authentication-token": token,
-        },
-      });
-
-      setUser({
-        token,
-        user: _user.data,
-      });
-
-      setAuthenticating(false);
     };
 
     checkUserLoggedIn();
