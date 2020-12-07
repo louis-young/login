@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 
 import { AuthenticationContext } from "../../../../context/AuthenticationContext";
 
@@ -12,6 +12,10 @@ const Register = () => {
   const [name, setName] = useState();
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
+
+  useEffect(() => {
+    setError(null);
+  }, []);
 
   const submit = async (event) => {
     event.preventDefault();

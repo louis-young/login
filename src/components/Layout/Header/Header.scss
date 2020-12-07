@@ -4,7 +4,9 @@
 @import "../../../stylesheets/base/typography";
 
 .header {
-  background: $light-grey;
+  background: $white;
+  height: 72px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -15,9 +17,10 @@
   width: 100%;
   z-index: 2;
   &__logo {
-    @extend %h3;
-    color: $primary-color;
+    @extend %h4;
+    color: $text;
     padding: unset;
     margin: unset;
+    font-weight: $semi-bold;
   }
 }

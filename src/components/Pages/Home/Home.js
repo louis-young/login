@@ -7,9 +7,7 @@ const Home = () => {
   return (
     <>
       <main className="page">
-        <h1>Home</h1>
-
-        <Link to="/test">Test</Link>
+        <h2 className="page__title">Home</h2>
       </main>
     </>
   );

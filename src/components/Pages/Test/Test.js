@@ -7,8 +7,8 @@ const Test = () => {
 
   return (
     <main className="page">
-      <h1>Test</h1>
-      <p>Welcome, {user.user.name}</p>
+      <h2 className="page__title">Test</h2>
+      <p>Hello, {user.user.name}</p>
     </main>
   );
 };

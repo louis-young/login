@@ -15,12 +15,16 @@ export const AuthenticationProvider = ({ children }) => {
 
   const [error, setError] = useState();
 
+  const [authenticating, setAuthenticating] = useState(false);
+
   /**
    * Check to see if user is logged in on initial render.
    */
 
   useEffect(() => {
     const checkUserLoggedIn = async () => {
+      setAuthenticating(true);
+
       const token = localStorage["authentication-token"] || "";
 
       const response = await Axios.post(`${process.env.REACT_APP_API_BASE_URL}/users/token/valid`, null, {
@@ -29,7 +33,11 @@ export const AuthenticationProvider = ({ children }) => {
         },
       });
 
-      if (!response.data) return;
+      if (!response.data) {
+        setAuthenticating(false);
+
+        return;
+      }
 
       // Named `_user` due to the state variable name.
       const _user = await Axios.get(`${process.env.REACT_APP_API_BASE_URL}/users`, {
@@ -42,6 +50,8 @@ export const AuthenticationProvider = ({ children }) => {
         token,
         user: _user.data,
       });
+
+      setAuthenticating(false);
     };
 
     checkUserLoggedIn();
@@ -63,7 +73,7 @@ export const AuthenticationProvider = ({ children }) => {
 
         localStorage["authentication-token"] = response.data.token;
 
-        history.push("/protected?origin=login");
+        history.push("/user");
       } catch (error) {
         const { message } = error.response.data;
 
@@ -101,7 +111,30 @@ export const AuthenticationProvider = ({ children }) => {
 
         localStorage["authentication-token"] = response.data.token;
 
-        history.push("/protected?action=registered");
+        history.push("/user");
+      } catch (error) {
+        const { message } = error.response.data;
+
+        if (message) setError(message);
+      }
+    })();
+  };
+
+  // Named `_delete` due to the `delete` keyword.
+  const _delete = () => {
+    (async () => {
+      try {
+        const token = localStorage["authentication-token"] || "";
+
+        const response = await Axios.delete(`${process.env.REACT_APP_API_BASE_URL}/users/delete`, {
+          headers: {
+            "x-authentication-token": token,
+          },
+        });
+
+        if (!response.data) return;
+
+        logout();
       } catch (error) {
         const { message } = error.response.data;
 
@@ -120,6 +153,8 @@ export const AuthenticationProvider = ({ children }) => {
         login,
         logout,
         register,
+        _delete,
+        authenticating,
       }}
     >
       {children}

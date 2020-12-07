@@ -1,26 +1,26 @@
 import React, { useContext } from "react";
-import { Route, useHistory } from "react-router-dom";
+import { Route } from "react-router-dom";
 
 import { AuthenticationContext } from "../../context/AuthenticationContext";
 
+import Login from "../../components/Pages/Authentication/Login/Login";
+
 const ProtectedRoute = ({ Component, ...rest }) => {
-  const history = useHistory();
+  const { user, authenticating } = useContext(AuthenticationContext);
 
-  const { user } = useContext(AuthenticationContext);
-
-  if (!user.user) {
-    history.push("/login");
-
-    return null;
+  if (authenticating) {
+    return "Loading...";
   }
 
-  return (
+  return user.user ? (
     <Route
       {...rest}
       render={(props) => {
         <Component {...props} />;
       }}
     />
+  ) : (
+    <Login />
   );
 };
 
