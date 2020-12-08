@@ -15,7 +15,7 @@ const Register = () => {
 
   useEffect(() => {
     setNotification(null);
-  }, []);
+  }, [setNotification]);
 
   const submit = async (event) => {
     event.preventDefault();

@@ -14,7 +14,7 @@ const Login = () => {
 
   useEffect(() => {
     setNotification(null);
-  }, []);
+  }, [setNotification]);
 
   const submit = async (event) => {
     event.preventDefault();
