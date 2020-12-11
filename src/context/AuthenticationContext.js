@@ -50,15 +50,12 @@ export const AuthenticationProvider = ({ children }) => {
 
         setAuthenticating(false);
       } catch (error) {
-        // Same as logout.
         setUser({
           token: null,
           user: null,
         });
 
         localStorage["authentication-token"] = "";
-
-        history.push("/");
 
         setAuthenticating(false);
       }
@@ -156,11 +153,15 @@ export const AuthenticationProvider = ({ children }) => {
       try {
         const token = localStorage["authentication-token"] || "";
 
-        const response = await Axios.patch(`${process.env.REACT_APP_API_BASE_URL}/users/update`, fields, {
-          headers: {
-            "x-authentication-token": token,
-          },
-        });
+        const response = await Axios.patch(
+          `${process.env.REACT_APP_API_BASE_URL}/users/update`,
+          { fields: fields },
+          {
+            headers: {
+              "x-authentication-token": token,
+            },
+          }
+        );
 
         if (!response.data) throw Error;
 

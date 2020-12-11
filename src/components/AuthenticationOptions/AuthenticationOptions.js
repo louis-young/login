@@ -8,11 +8,7 @@ import "./AuthenticationOptions.scss";
 const AuthenticationOptions = () => {
   const history = useHistory();
 
-  const { user, logout, authenticating } = useContext(AuthenticationContext);
-
-  if (authenticating) {
-    return "Loading...";
-  }
+  const { user, logout } = useContext(AuthenticationContext);
 
   return (
     <nav className="options">

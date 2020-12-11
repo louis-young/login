@@ -8,7 +8,7 @@ const Test = () => {
   return (
     <main className="page">
       <h2 className="page__title">Test</h2>
-      <p>Hello, {user.user.name}</p>
+      <p>Hello, {user.user.name}.</p>
     </main>
   );
 };

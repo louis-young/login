@@ -8,6 +8,10 @@ const Home = () => {
     <>
       <main className="page">
         <h2 className="page__title">Home</h2>
+
+        <Link to="/test" className="link">
+          Protected Route Test
+        </Link>
       </main>
     </>
   );

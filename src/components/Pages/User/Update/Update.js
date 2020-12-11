@@ -8,17 +8,20 @@ const Update = () => {
   const { user, update, notification, setNotification } = useContext(AuthenticationContext);
 
   const [name, setName] = useState(user.user.name);
+  const [password, setPassword] = useState("");
 
   useEffect(() => {
     setNotification(null);
-  }, []);
+  }, [setNotification]);
 
   const submit = async (event) => {
     event.preventDefault();
 
-    const fields = { name };
+    const fields = { name, password };
 
     update(fields);
+
+    setPassword("");
   };
 
   return (
@@ -32,7 +35,15 @@ const Update = () => {
           placeholder="Name"
           value={name}
           onChange={(event) => setName(event.target.value)}
-          required
+          className="form__input"
+        />
+
+        <input
+          type="password"
+          name="password"
+          placeholder="Password"
+          value={password}
+          onChange={(event) => setPassword(event.target.value)}
           className="form__input"
         />
 
